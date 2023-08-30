@@ -9,6 +9,17 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const item = JSON.parse(localStorage.getItem('contacts'));
+    this.setState({ contacts: item });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   onAddNewContact = values => {
     if (
       this.state.contacts.some(
